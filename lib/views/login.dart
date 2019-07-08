@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../model/authentication.dart';
 import '../presenter/login_presenter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -28,6 +29,7 @@ class _LoginPageState extends State<LoginPage> implements LoginPageContract {
   TextEditingController _pwdCtrl = new TextEditingController();
   TextEditingController _emailCtrl = new TextEditingController();
   LoginPagePresenter _presenter;
+  final FirebaseMessaging _messaging = FirebaseMessaging();
   _LoginPageState() {
     _presenter = new LoginPagePresenter(this);
   }
@@ -35,6 +37,15 @@ class _LoginPageState extends State<LoginPage> implements LoginPageContract {
   @override
   void initState() {
     super.initState();
+    _messaging.configure(
+     onMessage: (Map<String,dynamic>message){},
+     onResume: (Map<String,dynamic>message){},
+     onLaunch: (Map<String,dynamic>message){},
+    );
+    _messaging.getToken().then((token){
+    print(token);
+  });
+
   }
 
   @override
