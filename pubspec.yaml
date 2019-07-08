@@ -23,11 +23,7 @@ dependencies:
   fluttertoast: ^2.2.11
   shared_preferences: ^0.5.1+2
   url_launcher: ^5.0.2
-<<<<<<< HEAD
-  connectivity: ^0.4.3+1
   firebase_messaging: ^5.0.4
-=======
->>>>>>> ab5f0cd0dba9374b335a6bdeeda8d301b6642203
   #flutter_webview_plugin: ^0.3.1
   flutter_svg: ^0.12.0
   intl: ^0.15.8
