@@ -18,21 +18,25 @@ environment:
 
 dependencies:
   carousel_pro: ^0.0.13
+  #carousel_pro: ^1.0.0
   http: ^0.11.3
+  #http: ^0.12.0+2
   requester: ^1.0.0
-  fluttertoast: ^2.2.11
-  shared_preferences: ^0.5.1+2
-  url_launcher: ^5.0.2
-<<<<<<< HEAD
-  connectivity: ^0.4.3+1
+  #fluttertoast: ^2.2.11
+  fluttertoast: ^3.1.0
+  #shared_preferences: ^0.5.1+2
+  shared_preferences: ^0.5.3+2
+  #url_launcher: ^5.0.2
+  url_launcher: ^5.0.3
   firebase_messaging: ^5.0.4
-=======
->>>>>>> ab5f0cd0dba9374b335a6bdeeda8d301b6642203
   #flutter_webview_plugin: ^0.3.1
   flutter_svg: ^0.12.0
+  #flutter_svg: ^0.13.0+2
   intl: ^0.15.8
-  rxdart: ^0.21.0
-  cached_network_image: ^0.8.0
+  #rxdart: ^0.21.0
+  rxdart: ^0.22.0
+  #cached_network_image: ^0.8.0
+  cached_network_image: ^1.0.0
   flutter:
     sdk: flutter
 
