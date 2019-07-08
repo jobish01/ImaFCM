@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "700215393057",
+    "firebase_url": "https://imafcm-bd3da.firebaseio.com",
+    "project_id": "imafcm-bd3da",
+    "storage_bucket": "imafcm-bd3da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:700215393057:android:4ef161d493750161",
+        "android_client_info": {
+          "package_name": "com.zinemind.imaconnectapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "700215393057-egmla0onnebjahd9c92es4lgtpuivdld.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9EEHVeX4Lfwzsteoi-TwZ1oom-S1gClc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "700215393057-egmla0onnebjahd9c92es4lgtpuivdld.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
