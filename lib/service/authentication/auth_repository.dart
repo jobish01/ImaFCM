@@ -5,6 +5,8 @@ import '../../utils/app_constants.dart';
 abstract class AuthenticationRepository {
   Future<HttpResponseModel> validateLogin(String username, String password);
   Future<int> forgotPassword(String emailID);
+  Future<HttpResponseModel> insertDeviceToken(int useId,String token,String authToken);
+  Future<HttpResponseModel> updateDeviceToken(int useId,String token,String authToken);
 }
 
 class LoginRepository implements AuthenticationRepository {
@@ -28,6 +30,23 @@ class LoginRepository implements AuthenticationRepository {
     final response = await _apiRequester.sendRequest(
         RequestType.Post, ApiUrl.forgotpasswordUrl,requestBody);
     return response;
+  }
+   // DeviceToken stored to DB for FCM Push Notification
+  @override
+  Future<HttpResponseModel> insertDeviceToken(int useId,String token,String authToken) async {
+    var requestBody = {"uid": useId, "deviceToken": token};
+    final response = await _apiRequester.apiRequest(
+        HttpMethod.Post, ApiUrl.deviceTokenInsertUrl,requestBody: requestBody,token: authToken);
+    return new Future.value(new HttpResponseModel.fromJson(response));
+  }
+
+//Update DeviceToken stored to DB if user devicetoken change
+@override
+  Future<HttpResponseModel> updateDeviceToken(int useId,String token,String authToken) async {
+    var requestBody = {"uid": useId, "deviceToken": token};
+    final response = await _apiRequester.apiRequest(
+        HttpMethod.Post, ApiUrl.deviceTokenUpdateUrl,requestBody: requestBody,token: authToken);
+    return new Future.value(new HttpResponseModel.fromJson(response));
   }
 
 

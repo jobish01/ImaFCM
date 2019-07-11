@@ -10,6 +10,7 @@ class Authentication {
   int membershipType;
   int branchCode;
   String uName;
+  String deviceID;
 
   Authentication(
       {this.idUser,
@@ -22,7 +23,8 @@ class Authentication {
       this.level,
       this.branchCode,
       this.membershipType,
-      this.uName});
+      this.uName,
+      this.deviceID});
 
   Authentication.fromJson(dynamic obj) {
     this.idUser = obj['iD_User'];
@@ -37,5 +39,6 @@ class Authentication {
     this.membershipType = obj['membershipType'];
     this.profileImage = obj['profileImage'];
     this.uName = obj['uName'];
+    this.deviceID=obj['deviceID'];
   }
 }

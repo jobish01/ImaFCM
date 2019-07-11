@@ -1,7 +1,8 @@
 class Constants {
   static String methodPost = "POST";
   static String methodGet = "GET";
-  static String baseUrl = "http://52.77.230.142:93/api/";
+  static String baseUrl = "http://52.77.74.254:93/api/";
+  // static String baseUrl = "http://52.77.230.142:93/api/";
   static String oldUrl = "http://52.77.74.254:92/";
 }
 
@@ -16,6 +17,8 @@ class ApiUrl {
   static String forgotpasswordUrl = "Dataservice/forgotpassword";
   static String concernsListUrl ="Concern/GetConcernDataList";
   static String changepasswordUrl ="Membership/ChangePassword";
+  static String deviceTokenInsertUrl ="DeviceToken/InsertDeviceToken";
+  static String deviceTokenUpdateUrl ="DeviceToken/UpdateDeviceToken";
 }
 
 enum RequestType {

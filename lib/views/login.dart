@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> implements LoginPageContract {
   final formKey = new GlobalKey<FormState>();
   final formKeyforgot = new GlobalKey<FormState>();
   SharedPreferences prefs;
-  String _username, _password;
+  String _username, _password,_deviceToken;
   TextEditingController _userNameCtrl = new TextEditingController();
   TextEditingController _pwdCtrl = new TextEditingController();
   TextEditingController _emailCtrl = new TextEditingController();
@@ -38,14 +38,16 @@ class _LoginPageState extends State<LoginPage> implements LoginPageContract {
   void initState() {
     super.initState();
     _messaging.configure(
-     onMessage: (Map<String,dynamic>message){},
-     onResume: (Map<String,dynamic>message){},
-     onLaunch: (Map<String,dynamic>message){},
+      onMessage: (Map<String, dynamic> message) {},
+      onResume: (Map<String, dynamic> message) {},
+      onLaunch: (Map<String, dynamic> message) {},
     );
-    _messaging.getToken().then((token){
-    print(token);
-  });
-
+    _messaging.getToken().then((token) {
+      setState(() {
+        _deviceToken=token;
+      });
+      //print(token);
+    });
   }
 
   @override
@@ -264,15 +266,35 @@ class _LoginPageState extends State<LoginPage> implements LoginPageContract {
   //   }
   // }
 
+  void onStoreDeviceTokenSuccess(HttpResponseModel httpresponse)
+  {
+    if(httpresponse.responseCode==ResponseCode.SUCCESS)
+    {
+      // Navigator.of(context).push(
+      //  new MaterialPageRoute(builder: (BuildContext context) => new Home()));
+    }
+  }
+
+  @override
+  void onStoreDeviceTokenError(String error) {
+
+  }
+
   void onLoginSuccess(HttpResponseModel httpresponse) {
     if (httpresponse.responseCode == ResponseCode.SUCCESS) {
-      Authentication auth = new Authentication.fromJson(httpresponse.response);
-      if (auth.token != " " || auth.token != null) {
+      Authentication _auth = new Authentication.fromJson(httpresponse.response);
+      if (_auth.token != " " || _auth.token != null) {
         setState(() {
           _isLoading = false;
         });
-        storeKeys(auth);
-        
+        if(_auth.deviceID== "")
+        {
+         _presenter.insertDeviceToken(_auth.idUser,_deviceToken,_auth.token);
+        }
+        else if(_auth.deviceID== "" && _deviceToken!=_auth.deviceID){
+          _presenter.updateDeviceToken(_auth.idUser,_deviceToken,_auth.token);
+        }
+         storeKeys(_auth);
       }
     } else {
       if (httpresponse.responseCode == ResponseCode.WARNING) {
@@ -305,7 +327,7 @@ class _LoginPageState extends State<LoginPage> implements LoginPageContract {
 
   storeKeys(Authentication auth) async {
     String desgn = "";
-     String schmeApprovalstatus = "";
+    String schmeApprovalstatus = "";
     prefs = await SharedPreferences.getInstance();
     await prefs.setString('username', _username);
     await prefs.setString('uName', auth.uName);
@@ -319,8 +341,8 @@ class _LoginPageState extends State<LoginPage> implements LoginPageContract {
     await prefs.setInt('membershipType', auth.membershipType);
     await prefs.setInt('branchCode', auth.branchCode);
     await prefs.setString('profileImage', auth.profileImage);
-    Navigator.of(context).push(new MaterialPageRoute(
-            builder: (BuildContext context) => new Home()));
+    Navigator.of(context).push(
+        new MaterialPageRoute(builder: (BuildContext context) => new Home()));
   }
 
   void _showSnackBar(String text) {

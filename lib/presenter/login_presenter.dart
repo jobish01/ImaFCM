@@ -8,6 +8,8 @@ abstract class LoginPageContract {
   void onLoginError(String error);
   void onForgotPasswordSuccess(int responCode);
   void onForgotPasswordError(String error);
+  void onStoreDeviceTokenSuccess(HttpResponseModel auth);
+  void onStoreDeviceTokenError(String error);
 }
 
 class LoginPagePresenter {
@@ -34,6 +36,20 @@ class LoginPagePresenter {
     _loginRepository
         .forgotPassword(emailID)
         .then((user) => _view.onForgotPasswordSuccess(user))
+        .catchError((onError) => _view.onForgotPasswordError(onError.toString()));
+  }
+
+  insertDeviceToken(int userId,String token,String authToken) {
+    _loginRepository
+        .insertDeviceToken(userId,token,authToken)
+        .then((httpReponse) => _view.onStoreDeviceTokenSuccess(httpReponse))
+        .catchError((onError) => _view.onForgotPasswordError(onError.toString()));
+  }
+
+  updateDeviceToken(int userId,String token,String authToken) {
+    _loginRepository
+        .updateDeviceToken(userId,token,authToken)
+        .then((httpReponse) => _view.onStoreDeviceTokenSuccess(httpReponse))
         .catchError((onError) => _view.onForgotPasswordError(onError.toString()));
   }
 }
