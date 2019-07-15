@@ -42,6 +42,12 @@ class _LoginPageState extends State<LoginPage> implements LoginPageContract {
       onResume: (Map<String, dynamic> message) {},
       onLaunch: (Map<String, dynamic> message) {},
     );
+    _messaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
+    _messaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings) {
+      print("Settings registered: $settings");
+    });
     _messaging.getToken().then((token) {
       setState(() {
         _deviceToken=token;
@@ -233,7 +239,7 @@ class _LoginPageState extends State<LoginPage> implements LoginPageContract {
 
   @override
   void onLoginError(String error) {
-    _showSnackBar(error);
+   // _showSnackBar(error);
     setState(() {
       _isLoading = false;
     });
